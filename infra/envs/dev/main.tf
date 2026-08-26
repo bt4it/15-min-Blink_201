@@ -36,3 +36,35 @@ resource "azurerm_container_app_environment" "dev" {
     managed-by  = "terraform"
   }
 }
+
+resource "azurerm_container_app" "placeholder" {
+  name                         = "ca-15min-blinket-dev-gwc"
+  container_app_environment_id = azurerm_container_app_environment.dev.id
+  resource_group_name          = azurerm_resource_group.dev.name
+  revision_mode                = "Single"
+
+  template {
+    container {
+      name   = "placeholder"
+      image  = "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
+      cpu    = 0.25
+      memory = "0.5Gi"
+    }
+  }
+
+  ingress {
+    external_enabled = true
+    target_port      = 80
+
+    traffic_weight {
+      percentage      = 100
+      latest_revision = true
+    }
+  }
+
+  tags = {
+    project     = "15min-blinket"
+    environment = "dev"
+    managed-by  = "terraform"
+  }
+}
