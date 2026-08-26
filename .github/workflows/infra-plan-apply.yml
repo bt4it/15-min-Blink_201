@@ -31,6 +31,17 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
         run: terraform init
 
+      - name: Terraform Import (one-time - resource group predates Terraform)
+        working-directory: infra/envs/dev
+        env:
+          ARM_USE_OIDC: true
+          ARM_CLIENT_ID: ${{ vars.AZURE_PLAN_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        run: |
+          terraform import azurerm_resource_group.dev "/subscriptions/${{ vars.AZURE_SUBSCRIPTION_ID }}/resourceGroups/rg-15min-blinket-dev-gwc"
+
+
       - name: Terraform Plan
         working-directory: infra/envs/dev
         env:
