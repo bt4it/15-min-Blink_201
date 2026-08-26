@@ -42,20 +42,6 @@ resource "azurerm_log_analytics_workspace" "dev" {
   }
 }
 
-resource "azurerm_container_app_environment" "dev" {
-  name                       = "cae-15min-blinket-dev-gwc"
-  location                   = azurerm_resource_group.dev.location
-  resource_group_name        = azurerm_resource_group.dev.name
-  logs_destination           = "log-analytics"
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.dev.id
-
-  tags = {
-    project     = "15min-blinket"
-    environment = "dev"
-    managed-by  = "terraform"
-  }
-}
-
 resource "azurerm_container_app" "placeholder" {
   name                         = "ca-15min-blinket-dev-gwc"
   container_app_environment_id = azurerm_container_app_environment.dev.id
