@@ -109,7 +109,7 @@ resource "azurerm_mysql_flexible_server" "dev" {
   sku_name             = "B_Standard_B1ms"
 
   administrator_login    = "mysqladmin"
-  administrator_password = var.mysql_admin_password != null ? var.mysql_admin_password : "__REDACTED__"
+  administrator_password = var.mysql_admin_password != null ? var.mysql_admin_password : "TempPlanPwd123!"
 
   backup_retention_days = 7
 
