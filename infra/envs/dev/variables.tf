@@ -14,4 +14,5 @@ variable "mysql_admin_password" {
   description = "Administrator password for MySQL Flexible Server (dev)."
   type        = string
   sensitive   = true
+  default     = null
 }
