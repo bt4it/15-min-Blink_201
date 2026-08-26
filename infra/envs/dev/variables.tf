@@ -9,3 +9,9 @@ variable "resource_group_name" {
   type        = string
   default     = "rg-15min-blinket-dev-gwc"
 }
+
+variable "mysql_admin_password" {
+  description = "Administrator password for MySQL Flexible Server (dev)."
+  type        = string
+  sensitive   = true
+}

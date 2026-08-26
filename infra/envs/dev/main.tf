@@ -99,3 +99,26 @@ resource "azurerm_storage_container" "audio" {
   storage_account_id    = azurerm_storage_account.audio.id
   container_access_type = "private"
 }
+
+resource "azurerm_mysql_flexible_server" "dev" {
+  name                = "mysql-15min-blinket-dev"
+  resource_group_name = azurerm_resource_group.dev.name
+  location            = azurerm_resource_group.dev.location
+
+  version              = "8.0.21" # or "8.0" if your provider prefers that form
+  sku_name             = "B_Standard_B1ms"
+  storage_mb           = 32768
+  storage_iops         = 360
+  auto_grow_enabled    = true
+
+  administrator_login    = "mysqladmin"
+  administrator_password = var.mysql_admin_password
+
+  backup_retention_days = 7
+
+  tags = {
+    project      = "15min-blinket"
+    environment  = "dev"
+    managed-by   = "terraform"
+  }
+}

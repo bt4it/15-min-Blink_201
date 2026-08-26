@@ -21,3 +21,13 @@ output "audio_storage_account_name" {
 output "audio_container_name" {
   value = azurerm_storage_container.audio.name
 }
+
+output "mysql_fqdn" {
+  value     = azurerm_mysql_flexible_server.dev.fqdn
+  sensitive = false
+}
+
+output "mysql_server_name" {
+  value     = azurerm_mysql_flexible_server.dev.name
+  sensitive = false
+}
