@@ -47,6 +47,7 @@ resource "azurerm_container_app" "placeholder" {
   container_app_environment_id = azurerm_container_app_environment.dev.id
   resource_group_name          = azurerm_resource_group.dev.name
   revision_mode                = "Single"
+  workload_profile_name        = "Consumption"
 
   template {
     container {
