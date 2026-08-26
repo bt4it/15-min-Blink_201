@@ -107,9 +107,6 @@ resource "azurerm_mysql_flexible_server" "dev" {
 
   version              = "8.0.21" # or "8.0" if your provider prefers that form
   sku_name             = "B_Standard_B1ms"
-  storage_mb           = 32768
-  storage_iops         = 360
-  auto_grow_enabled    = true
 
   administrator_login    = "mysqladmin"
   administrator_password = var.mysql_admin_password != null ? var.mysql_admin_password : ""
