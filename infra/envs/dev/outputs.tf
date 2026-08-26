@@ -9,3 +9,7 @@ output "log_analytics_workspace_id" {
 output "container_app_environment_default_domain" {
   value = azurerm_container_app_environment.dev.default_domain
 }
+
+output "placeholder_container_app_url" {
+  value = "https://${azurerm_container_app.placeholder.ingress[0].fqdn}"
+}
