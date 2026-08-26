@@ -82,7 +82,7 @@ resource "azurerm_storage_account" "audio" {
 
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  min_tls_version           = "TLS1_2"
+  min_tls_version          = "TLS1_2"
 
   allow_nested_items_to_be_public = false
   shared_access_key_enabled       = false
@@ -105,8 +105,8 @@ resource "azurerm_mysql_flexible_server" "dev" {
   resource_group_name = azurerm_resource_group.dev.name
   location            = azurerm_resource_group.dev.location
 
-  version              = "8.0.21" # or "8.0" if your provider prefers that form
-  sku_name             = "B_Standard_B1ms"
+  version  = "8.0.21" # or "8.0" if your provider prefers that form
+  sku_name = "B_Standard_B1ms"
 
   administrator_login    = "mysqladmin"
   administrator_password = var.mysql_admin_password != null ? var.mysql_admin_password : "TempPlanPwd123!"
@@ -114,8 +114,8 @@ resource "azurerm_mysql_flexible_server" "dev" {
   backup_retention_days = 7
 
   tags = {
-    project      = "15min-blinket"
-    environment  = "dev"
-    managed-by   = "terraform"
+    project     = "15min-blinket"
+    environment = "dev"
+    managed-by  = "terraform"
   }
 }
