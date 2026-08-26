@@ -11,7 +11,7 @@ variable "resource_group_name" {
 }
 
 variable "mysql_admin_password" {
-  description = "Administrator password for MySQL Flexible Server (dev)."
+  description = "Admin password for MySQL Flexible Server (dev)."
   type        = string
   sensitive   = true
   default     = null
