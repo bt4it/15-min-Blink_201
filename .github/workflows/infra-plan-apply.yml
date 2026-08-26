@@ -47,52 +47,52 @@ jobs:
           path: infra/envs/dev/tfplan
           retention-days: 5
 
-apply:
-  name: Terraform Apply (Apply identity)
-  needs: plan
-  runs-on: ubuntu-latest
-  environment: dev
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+  apply:
+    name: Terraform Apply (Apply identity)
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
-    - name: Download plan artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: tfplan
-        path: infra/envs/dev
+      - name: Download plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: infra/envs/dev
 
-    - name: Terraform Init
-      working-directory: infra/envs/dev
-      env:
-        ARM_USE_OIDC: true
-        ARM_CLIENT_ID: ${{ vars.AZURE_APPLY_CLIENT_ID }}
-        ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      run: terraform init -reconfigure
+      - name: Terraform Init
+        working-directory: infra/envs/dev
+        env:
+          ARM_USE_OIDC: true
+          ARM_CLIENT_ID: ${{ vars.AZURE_APPLY_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        run: terraform init -reconfigure
 
-    - name: Debug Terraform directory
-      working-directory: infra/envs/dev
-      run: |
-        echo "=== Working directory ==="
-        pwd
-        echo "=== Files in directory ==="
-        ls -la
-        echo "=== variables.tf content ==="
-        cat variables.tf
+      - name: Debug Terraform directory
+        working-directory: infra/envs/dev
+        run: |
+          echo "=== Working directory ==="
+          pwd
+          echo "=== Files in directory ==="
+          ls -la
+          echo "=== variables.tf content ==="
+          cat variables.tf
 
-    - name: Terraform Apply
-      working-directory: infra/envs/dev
-      env:
-        ARM_USE_OIDC: true
-        ARM_CLIENT_ID: ${{ vars.AZURE_APPLY_CLIENT_ID }}
-        ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      run: |
-        terraform apply \
-          -var="mysql_admin_password=${{ secrets.MYSQL_ADMIN_PASSWORD }}" \
-          -input=false \
-          tfplan
+      - name: Terraform Apply
+        working-directory: infra/envs/dev
+        env:
+          ARM_USE_OIDC: true
+          ARM_CLIENT_ID: ${{ vars.AZURE_APPLY_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+        run: |
+          terraform apply \
+            -var="mysql_admin_password=${{ secrets.MYSQL_ADMIN_PASSWORD }}" \
+            -input=false \
+            tfplan
