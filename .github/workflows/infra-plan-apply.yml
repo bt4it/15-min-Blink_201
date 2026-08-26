@@ -72,6 +72,7 @@ jobs:
           ARM_CLIENT_ID: ${{ vars.AZURE_APPLY_CLIENT_ID }}
           ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          MYSQL_ADMIN_PASSWORD: ${{ secrets.MYSQL_ADMIN_PASSWORD }}
         run: terraform init
 
       - name: Debug Terraform directory
