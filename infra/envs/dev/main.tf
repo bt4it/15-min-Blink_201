@@ -112,7 +112,7 @@ resource "azurerm_mysql_flexible_server" "dev" {
   auto_grow_enabled    = true
 
   administrator_login    = "mysqladmin"
-  administrator_password = var.mysql_admin_password != null ? 
+  administrator_password = var.mysql_admin_password != null ? var.mysql_admin_password : ""
 
   backup_retention_days = 7
 
