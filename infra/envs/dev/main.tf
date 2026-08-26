@@ -73,3 +73,28 @@ resource "azurerm_container_app" "placeholder" {
     managed-by  = "terraform"
   }
 }
+
+resource "azurerm_storage_account" "audio" {
+  name                = "st15minblinketdev"
+  resource_group_name = azurerm_resource_group.dev.name
+  location            = azurerm_resource_group.dev.location
+
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  min_tls_version           = "TLS1_2"
+
+  allow_nested_items_to_be_public = false
+  shared_access_key_enabled       = false
+
+  tags = {
+    project     = "15min-blinket"
+    environment = "dev"
+    managed-by  = "terraform"
+  }
+}
+
+resource "azurerm_storage_container" "audio" {
+  name                  = "audio"
+  storage_account_id    = azurerm_storage_account.audio.id
+  container_access_type = "private"
+}
