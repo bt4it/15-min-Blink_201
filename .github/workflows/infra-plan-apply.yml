@@ -74,6 +74,16 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
         run: terraform init
 
+      - name: Debug Terraform directory
+        working-directory: infra/envs/dev
+        run: |
+          echo "=== Working directory ==="
+          pwd
+          echo "=== Files in directory ==="
+          ls -la
+          echo "=== variables.tf content ==="
+          cat variables.tf
+
       - name: Terraform Apply
         working-directory: infra/envs/dev
         env:
